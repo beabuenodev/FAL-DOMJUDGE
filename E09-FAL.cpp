@@ -20,31 +20,20 @@ tSolucion heidi(vector<int> const& v, int lmin) {
     if (v.size() == 1) {
         return sol;
     }
-
     for (int i = v.size() - 2; i >= 0; i--) {
-        if (v[i] == anterior && anterior >= max) { 
-            if (i == 0) {
-                cllano++;
-                if (cllano >= lmin) {
-                    sol.iniciollanos.push_back(i + cllano - 1);
-                    if (cllano > sol.lmax)
-                        sol.lmax = cllano;
-                    return sol;
-                }
-            }
-            cllano++; 
-        }
-        else {
-            if (cllano >= lmin) {
-                sol.iniciollanos.push_back(i + cllano);
-                if (cllano > sol.lmax)
-                    sol.lmax = cllano;
-                cllano = 1;
-            } 
-        }
         if (v[i] > max) {
             max = v[i];
-        } 
+        }
+        if (v[i] == anterior && anterior >= max) { 
+            cllano++;
+            if (cllano == lmin) 
+                sol.iniciollanos.push_back(i + cllano - 1);
+            if (cllano > sol.lmax && cllano >= lmin)
+                sol.lmax = cllano;
+        }
+        else {
+            cllano = 1;
+        }
         anterior = v[i];
     }
 
